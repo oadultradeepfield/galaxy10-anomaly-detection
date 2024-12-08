@@ -7,8 +7,8 @@ from typing import Tuple
 
 
 def create_feature_extractor() -> nn.Sequential:
-    """Create a feature extractor based on ResNet18."""
-    pretrained_model = models.resnet18(weights="DEFAULT")
+    """Create a feature extractor based on ResNet50."""
+    pretrained_model = models.resnet50(weights="DEFAULT")
     feature_extractor = nn.Sequential(*list(pretrained_model.children())[:-1])
     feature_extractor.eval()
     return feature_extractor

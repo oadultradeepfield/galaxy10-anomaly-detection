@@ -38,14 +38,13 @@ def print_info(message: str) -> None:
 
 def main() -> None:
     print_header("Galaxy Anomaly Detection Pipeline Initiated!")
-    dataset_path = "/path/to/galaxy10_dataset"
     output_dir = "anomaly_detection_results"
 
     os.makedirs(output_dir, exist_ok=True)
     print_info(f"Output directory created: {output_dir}")
 
     print_header("Loading Galaxy Dataset")
-    train_loader, test_loader = load_galaxy_dataset(dataset_path)
+    train_loader, test_loader = load_galaxy_dataset()
     print_success(f"Loaded {len(train_loader.dataset)} training images")
     print_success(f"Loaded {len(test_loader.dataset)} test images")
 

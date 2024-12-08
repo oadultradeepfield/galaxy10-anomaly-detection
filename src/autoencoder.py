@@ -9,14 +9,40 @@ class Autoencoder(nn.Module):
         """Initialize Autoencoder model"""
         super(Autoencoder, self).__init__()
         self.encoder = nn.Sequential(
-            nn.Linear(input_dim, 512), nn.ReLU(), nn.Linear(512, latent_dim)
+            nn.Linear(input_dim, 1024),
+            nn.ReLU(),
+            nn.BatchNorm1d(1024),
+            nn.Linear(1024, 512),
+            nn.ReLU(),
+            nn.BatchNorm1d(512),
+            nn.Linear(512, 256),
+            nn.ReLU(),
+            nn.BatchNorm1d(256),
+            nn.Linear(256, 128),
+            nn.ReLU(),
+            nn.BatchNorm1d(128),
+            nn.Linear(128, latent_dim),
         )
         self.decoder = nn.Sequential(
-            nn.Linear(latent_dim, 512), nn.ReLU(), nn.Linear(512, input_dim)
+            nn.Linear(latent_dim, 128),
+            nn.ReLU(),
+            nn.BatchNorm1d(128),
+            nn.Linear(128, 256),
+            nn.ReLU(),
+            nn.BatchNorm1d(256),
+            nn.Linear(256, 512),
+            nn.ReLU(),
+            nn.BatchNorm1d(512),
+            nn.Linear(512, 1024),
+            nn.ReLU(),
+            nn.BatchNorm1d(1024),
+            nn.Linear(1024, input_dim),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass through the autoencoder"""
+        if x.dim() == 1:
+            x = x.unsqueeze(0)
         latent = self.encoder(x)
         reconstructed = self.decoder(latent)
         return reconstructed
@@ -24,7 +50,7 @@ class Autoencoder(nn.Module):
 
 def train_autoencoder(
     train_features: np.ndarray,
-    epochs: int = 50,
+    epochs: int = 30,
     lr: float = 1e-4,
 ) -> nn.Module:
     """Train the autoencoder"""
