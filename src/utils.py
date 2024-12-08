@@ -1,23 +1,39 @@
+import random
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.manifold import TSNE
 from typing import Optional
 
 
-def visualize_reconstruction(
-    original: np.ndarray, reconstructed: np.ndarray, save_path: Optional[str] = None
-) -> None:
-    """Visualize original and reconstructed images"""
-    _, axes = plt.subplots(1, 2, figsize=(10, 5))
-    axes[0].imshow(original.permute(1, 2, 0).cpu().numpy())
-    axes[0].set_title("Original")
-    axes[1].imshow(reconstructed.permute(1, 2, 0).cpu().numpy())
-    axes[1].set_title("Reconstructed")
+def visualize_anomalies(images, labels, anomalies, output_path, max_to_display=10):
+    """Visualize a subset of images flagged as anomalies."""
+    anomaly_indices = np.where(anomalies == 1)[0]
+    num_anomalies = len(anomaly_indices)
 
-    if save_path:
-        plt.savefig(save_path)
-    else:
-        plt.show()
+    if num_anomalies == 0:
+        raise Exception("No anomalies to visualize.")
+
+    if num_anomalies > max_to_display:
+        anomaly_indices = random.sample(list(anomaly_indices), max_to_display)
+
+    cols = 5
+    rows = (len(anomaly_indices) // cols) + (len(anomaly_indices) % cols > 0)
+    _, axes = plt.subplots(rows, cols, figsize=(15, rows * 3))
+    axes = axes.flatten()
+
+    for i, idx in enumerate(anomaly_indices):
+        img = images[idx]
+        label = labels[idx]
+        axes[i].imshow(img)
+        axes[i].set_title(f"Anomaly ID: {idx}\nLabel: {label}")
+        axes[i].axis("off")
+
+    for j in range(i + 1, len(axes)):
+        axes[j].axis("off")
+
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.show()
 
 
 def visualize_latent_space(

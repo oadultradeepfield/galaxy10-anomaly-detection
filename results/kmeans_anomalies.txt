@@ -1,0 +1,73 @@
+Anomaly Detection Report
+=====================
+
+Total Samples: 1774
+Anomalies Detected: 66
+
+Anomaly Details:
+Sample 33: Label 3
+Sample 39: Label 8
+Sample 44: Label 0
+Sample 45: Label 2
+Sample 64: Label 1
+Sample 72: Label 2
+Sample 154: Label 0
+Sample 174: Label 9
+Sample 180: Label 6
+Sample 212: Label 5
+Sample 251: Label 7
+Sample 265: Label 7
+Sample 266: Label 7
+Sample 288: Label 7
+Sample 297: Label 2
+Sample 379: Label 6
+Sample 504: Label 7
+Sample 577: Label 0
+Sample 616: Label 9
+Sample 684: Label 5
+Sample 687: Label 3
+Sample 727: Label 0
+Sample 759: Label 0
+Sample 803: Label 2
+Sample 812: Label 5
+Sample 843: Label 1
+Sample 887: Label 3
+Sample 899: Label 6
+Sample 908: Label 3
+Sample 935: Label 1
+Sample 940: Label 3
+Sample 963: Label 9
+Sample 971: Label 7
+Sample 986: Label 2
+Sample 987: Label 3
+Sample 1001: Label 7
+Sample 1002: Label 0
+Sample 1023: Label 8
+Sample 1024: Label 7
+Sample 1045: Label 1
+Sample 1102: Label 0
+Sample 1147: Label 7
+Sample 1154: Label 1
+Sample 1157: Label 6
+Sample 1173: Label 1
+Sample 1180: Label 3
+Sample 1217: Label 7
+Sample 1233: Label 7
+Sample 1272: Label 0
+Sample 1331: Label 3
+Sample 1355: Label 6
+Sample 1365: Label 7
+Sample 1373: Label 5
+Sample 1390: Label 0
+Sample 1422: Label 7
+Sample 1477: Label 7
+Sample 1486: Label 5
+Sample 1504: Label 0
+Sample 1532: Label 5
+Sample 1553: Label 5
+Sample 1584: Label 2
+Sample 1594: Label 5
+Sample 1607: Label 9
+Sample 1673: Label 8
+Sample 1731: Label 4
+Sample 1743: Label 3

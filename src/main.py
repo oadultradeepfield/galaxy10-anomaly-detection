@@ -12,11 +12,11 @@ from feature_extraction import (
 from autoencoder import (
     train_autoencoder,
     compute_reconstruction_errors,
-    set_anomaly_threshold,
-    detect_anomalies_from_threshold,
+    set_anomaly_threshold_iqr,
+    detect_anomalies_from_threshold_iqr,
 )
 from clustering import detect_anomalies
-from utils import visualize_reconstruction, visualize_latent_space, save_anomaly_report
+from utils import visualize_latent_space, save_anomaly_report, visualize_anomalies
 
 colorama.init(autoreset=True)
 
@@ -50,7 +50,7 @@ def main() -> None:
 
     print_header("Extracting Features")
     feature_extractor = create_feature_extractor()
-    train_features, train_labels = extract_features(train_loader, feature_extractor)
+    train_features, _ = extract_features(train_loader, feature_extractor)
     test_features, test_labels = extract_features(test_loader, feature_extractor)
     print_success(
         f"Extracted features: Training set {train_features.shape}, Test set {test_features.shape}"
@@ -62,22 +62,28 @@ def main() -> None:
 
     print_header("Detecting Anomalies")
     reconstruction_losses = compute_reconstruction_errors(autoencoder, test_features)
-    anomaly_threshold = set_anomaly_threshold(reconstruction_losses, percentile=95)
-    reconstruction_losses_anomalies = detect_anomalies_from_threshold(
+    anomaly_threshold = set_anomaly_threshold_iqr(reconstruction_losses)
+    reconstruction_losses_anomalies = detect_anomalies_from_threshold_iqr(
         reconstruction_losses, anomaly_threshold
     )
-    kmeans_anomalies = detect_anomalies(train_features, method="kmeans")
-    dbscan_anomalies = detect_anomalies(train_features, method="dbscan")
+    kmeans_anomalies = detect_anomalies(test_features, method="kmeans")
+    dbscan_anomalies = detect_anomalies(test_features, method="dbscan")
+    common_anomalies = (
+        reconstruction_losses_anomalies & kmeans_anomalies & dbscan_anomalies
+    )
 
     print_success(
         f"Reconstruction Loss Anomalies Detected: {np.sum(reconstruction_losses_anomalies)}"
     )
-    print_success(f"K-means Anomalies Detected: {len(kmeans_anomalies)}")
-    print_success(f"DBSCAN Anomalies Detected: {len(dbscan_anomalies)}")
+    print_success(f"K-means Anomalies Detected: {np.sum(kmeans_anomalies)}")
+    print_success(f"DBSCAN Anomalies Detected: {np.sum(dbscan_anomalies)}")
+    print_success(
+        f"Total Anomalies Detected (Intersection): {np.sum(common_anomalies)}"
+    )
 
     print_header("Generating Visualizations")
     latent_space_path = os.path.join(output_dir, "latent_space.png")
-    visualize_latent_space(train_features, train_labels, latent_space_path)
+    visualize_latent_space(test_features, test_labels, latent_space_path)
     print_success(f"Latent space visualization saved to {latent_space_path}")
 
     print_header("Saving Anomaly Reports")
@@ -94,10 +100,10 @@ def main() -> None:
         reconstruction_losses_report_path,
     )
     save_anomaly_report(
-        train_features, train_labels, kmeans_anomalies, kmeans_report_path
+        test_features, test_labels, kmeans_anomalies, kmeans_report_path
     )
     save_anomaly_report(
-        train_features, train_labels, dbscan_anomalies, dbscan_report_path
+        test_features, test_labels, dbscan_anomalies, dbscan_report_path
     )
 
     print_info(
@@ -106,21 +112,15 @@ def main() -> None:
     print_success(f"K-means anomaly report saved to {kmeans_report_path}")
     print_success(f"DBSCAN anomaly report saved to {dbscan_report_path}")
 
-    print_header("Visualizing Reconstructions")
-    for images, _ in test_loader:
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        images = images.to(device)
-
-        with torch.no_grad():
-            features = feature_extractor(images).squeeze()
-            reconstructed_features = autoencoder(features)
-
-        reconstruction_path = os.path.join(output_dir, "reconstruction_example.png")
-        visualize_reconstruction(
-            images[0], reconstructed_features[0], reconstruction_path
-        )
-        print_success(f"Reconstruction visualization saved to {reconstruction_path}")
-        break
+    print_header("Visualizing a Few Anomalies")
+    anomaly_visualization_path = os.path.join(output_dir, "sampled_anomalies.png")
+    visualize_anomalies(
+        images=test_loader.dataset.dataset.images,
+        labels=test_labels,
+        anomalies=common_anomalies,
+        output_path=anomaly_visualization_path,
+        max_to_display=10,
+    )
 
     print_header("Galaxy Anomaly Detection Pipeline Completed Successfully! 🌌")
 
