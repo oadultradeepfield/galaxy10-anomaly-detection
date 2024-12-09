@@ -71,7 +71,7 @@ Galaxy10 dataset (17736 images)
 
 ## Common Anomalies
 
-Using the reconstruction losses from the autoencoders, I detect a total of 87 anomalies (with the reconstruction error cutoff threshold set at around 0.0352). Similarly, K-means clustering detects around 99 anomalies, though it may flag different samples. DBSCAN, however, does not perform well for this task, as it flags 767 samples (almost 44%) as anomalies. Since DBSCAN is density-based and the number of clusters is not well established, I hypothesize that the algorithm may not appropriately identify data points outside the training set and may overfit, as illustrated in the plot above.
+Using the reconstruction losses from the [autoencoders](/results/reconstruction_losses_anomalies.txt), I detect a total of 87 anomalies (with the reconstruction error cutoff threshold set at around 0.0352). Similarly, [K-means clustering](/results/kmeans_anomalies.txt) detects around 99 anomalies, though it may flag different samples. [DBSCAN](/results/dbscan_anomalies.txt), however, does not perform well for this task, as it flags 767 samples (almost 44%) as anomalies. Since DBSCAN is density-based and the number of clusters is not well established, I hypothesize that the algorithm may not appropriately identify data points outside the training set and may overfit, as illustrated in the plot above.
 
 For reliable anomaly detection, I decide to use the common anomalies identified by all three methods, resulting in a total of 14 anomalies. Nine of these are shown in the images below:
 
