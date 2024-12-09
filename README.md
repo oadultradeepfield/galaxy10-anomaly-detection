@@ -51,6 +51,6 @@ To get started with this project, follow the steps below:
    python src/main.py
    ```
 
-## Acknowledgements
+## Acknowledgment
 
-I would like to express my gratitude to the creators and contributors of the Galaxy10 DECals dataset for providing this invaluable resource. Their work in capturing and curating galaxy images has significantly advanced research in astronomy and machine learning applications.
+I would like to express my gratitude to the creators and contributors sof the Galaxy10 DECals dataset for providing this invaluable resource. Their work in capturing and curating galaxy images has significantly advanced research in astronomy and machine learning applications.
