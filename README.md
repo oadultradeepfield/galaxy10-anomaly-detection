@@ -22,7 +22,7 @@ This work uses a pretrained `ResNet50` model to extract image features as linear
 
 ## Quick Overview
 
-For a comprehensive analysis, please refer to [this report](/reports/results.md). Overall, we identify a total of 14 anomalous galaxies out of the 1,774 galaxies in the testing set by combining the common anomalies detected by the three methods. You can explore the author's results either through the [notebook](/galaxy10-anomaly-detection.ipynb) or on [Kaggle](https://www.kaggle.com/code/psrisukhawasu/galaxy10-anomaly-detection). Below are some of the identified anomalies:
+For a comprehensive analysis, please refer to [this report](/reports/results.md). Overall, we identify a total of 14 anomalous galaxies out of the 1,774 galaxies in the testing set by combining the common anomalies detected by the three methods. You can explore the author's results as well as the documentation either through the [notebook](/galaxy10-anomaly-detection.ipynb) or on [Kaggle](https://www.kaggle.com/code/psrisukhawasu/galaxy10-anomaly-detection). Below are some of the identified anomalies:
 
 ![Galaxies Flagged As Anomalies](/reports/figures/sampled_anomalies.png)
 
