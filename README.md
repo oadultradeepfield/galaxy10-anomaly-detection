@@ -1,10 +1,10 @@
 # Galaxy10 DECals Anomaly Detection
 
-In this repository, I present an analysis of anomaly detection in the Galaxy10 DECals dataset, which is a collection of galaxy images captured over the long history of the Sky Survey.
-
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
 ![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white)
+
+In this repository, I present an analysis of anomaly detection in the Galaxy10 DECals dataset, which is a collection of galaxy images captured over the long history of the Sky Survey.
 
 ## Motivation
 
