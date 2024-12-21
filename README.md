@@ -2,9 +2,9 @@
 
 In this repository, I present an analysis of anomaly detection in the Galaxy10 DECals dataset, which is a collection of galaxy images captured over the long history of the Sky Survey.
 
-[![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=PyTorch&logoColor=white)](https://pytorch.org/)
-[![Kaggle Notebook](https://img.shields.io/badge/Kaggle%20Notebook-gray?style=flat&logo=Kaggle&logoColor=20BEFF)](https://www.kaggle.com/code/psrisukhawasu/galaxy10-anomaly-detection)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
+![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white)
 
 ## Motivation
 
