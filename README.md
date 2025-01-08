@@ -76,8 +76,6 @@ To get started with this project, follow the steps below:
    cd galaxy10-anomaly-detection
    ```
 
-````
-
 2. **Install dependencies**:
    Ensure you have Python 3.8+ installed. You can install the required packages using the following command:
 
@@ -95,4 +93,3 @@ To get started with this project, follow the steps below:
 ## Acknowledgment
 
 I would like to express my gratitude to the creators and contributors sof the Galaxy10 DECals dataset for providing this invaluable resource. Their work in capturing and curating galaxy images has significantly advanced research in astronomy and machine learning applications.
-````
