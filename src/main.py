@@ -1,22 +1,17 @@
 import os
-import torch
-import numpy as np
+
 import colorama
+import numpy as np
 from colorama import Fore, Style
 
-from dataset import load_galaxy_dataset
-from feature_extraction import (
-    create_feature_extractor,
-    extract_features,
-)
-from autoencoder import (
-    train_autoencoder,
-    compute_reconstruction_errors,
-    set_anomaly_threshold_iqr,
-    detect_anomalies_from_threshold_iqr,
-)
+from autoencoder import (compute_reconstruction_errors,
+                         detect_anomalies_from_threshold_iqr,
+                         set_anomaly_threshold_iqr, train_autoencoder)
 from clustering import detect_anomalies
-from utils import visualize_latent_space, save_anomaly_report, visualize_anomalies
+from dataset import load_galaxy_dataset
+from feature_extraction import create_feature_extractor, extract_features
+from utils import (save_anomaly_report, visualize_anomalies,
+                   visualize_latent_space)
 
 colorama.init(autoreset=True)
 

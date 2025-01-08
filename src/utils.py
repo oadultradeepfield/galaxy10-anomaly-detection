@@ -1,8 +1,9 @@
 import random
+from typing import Optional
+
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.manifold import TSNE
-from typing import Optional
 
 
 def visualize_anomalies(images, labels, anomalies, output_path, max_to_display=10):

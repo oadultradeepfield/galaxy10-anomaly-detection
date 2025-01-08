@@ -1,8 +1,9 @@
+from typing import Optional, Tuple
+
 import numpy as np
-from sklearn.cluster import KMeans, DBSCAN
-from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import DBSCAN, KMeans
 from sklearn.neighbors import NearestNeighbors
-from typing import Tuple, Optional
+from sklearn.preprocessing import StandardScaler
 
 
 def perform_kmeans(

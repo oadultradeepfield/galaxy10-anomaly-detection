@@ -1,9 +1,10 @@
+from typing import Tuple
+
 import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import models
-from typing import Tuple
 
 
 def create_feature_extractor() -> nn.Sequential:

@@ -1,9 +1,10 @@
 from typing import Tuple
+
 import numpy as np
 import torch
-from torch.utils.data import Dataset, DataLoader, random_split
-from torchvision import transforms
 from astroNN.datasets import load_galaxy10
+from torch.utils.data import DataLoader, Dataset, random_split
+from torchvision import transforms
 
 IMG_SIZE = 128
 BATCH_SIZE = 32
