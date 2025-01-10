@@ -3,7 +3,6 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
@@ -21,11 +20,14 @@ This work uses a pretrained `ResNet50` model to extract image features as linear
 As of January 2025, I have built a public API using Flask for image analysis and anomaly detection with Autoencoders. The implementation details are provided in the sections below. The API is containerized with Docker and deployed on Google Cloud Run. To use it, follow these steps:
 
 1. **Prepare Images**: Format your images similarly to the Galaxy10 DECals dataset. While not mandatory, this ensures better accuracy.
-2. **Use the API**: The API is publicly accessible at [https://galaxy10-722997148167.asia-southeast1.run.app](https://galaxy10-722997148167.asia-southeast1.run.app). Note that rate limits may restrict large requests. Here’s an example of how to use it:
+   Here’s the revised version that includes the requirement to pass an API key and information about where users can generate one:
+
+2. **Use the API**: The API is publicly accessible at [https://galaxy10-722997148167.asia-southeast1.run.app](https://galaxy10-722997148167.asia-southeast1.run.app). Note that rate limits may restrict large requests. To use the API, you must include a valid API key in the request headers. You can generate your API key at [https://galaxy10-apikey.vercel.app](https://galaxy10-apikey.vercel.app). Here’s an example of how to use the API:
 
    ```bash
    curl -X POST "https://galaxy10-722997148167.asia-southeast1.run.app/detect-anomalies" \
       -H "Content-Type: application/json" \
+      -H "Authorization: Bearer YOUR_API_KEY" \
       -d '{
          "image_paths": [
             "https://example.com/image1.jpg",
@@ -34,7 +36,7 @@ As of January 2025, I have built a public API using Flask for image analysis and
       }'
    ```
 
-   Ensure the image URL is publicly accessible on the internet. The output is returned in JSON format, as shown below, with "loss" representing the reconstruction error.
+   Ensure the image URLs are publicly accessible on the internet. The output is returned in JSON format, as shown below, with "loss" representing the reconstruction error.
 
    ```json
    [
