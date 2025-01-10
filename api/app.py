@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 from flask import Flask, jsonify, request
 from helper import (compute_reconstruction_errors, create_feature_extractor,
@@ -20,9 +21,12 @@ def detect_anomalies():
     img_list = load_images(image_paths)
     processed_img_list = [resize_image(img) for img in img_list]
 
-    tensor_images = torch.stack([torch.tensor(img).permute(2, 0, 1).float() / 255 for img in processed_img_list])
-    features = feature_extractor(tensor_images)
-
+    tensor_images = torch.stack([
+        torch.tensor(np.array(img)).permute(2, 0, 1).float() / 255
+        for img in processed_img_list
+    ])
+    
+    features = feature_extractor(tensor_images).squeeze()
     reconstruction_errors = compute_reconstruction_errors(model, features)
 
     results = []

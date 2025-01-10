@@ -22,7 +22,7 @@ def load_images(paths: List[str]) -> List[Image.Image]:
     
 def resize_image(img: Image.Image) -> Image.Image:
     """Resizes the given Pillow image to 128x128 pixels."""
-    return img.resize((128, 128), Image.ANTIALIAS)
+    return img.resize((128, 128), Image.Resampling.LANCZOS)
 
 def create_feature_extractor() -> nn.Sequential:
     """Create a feature extractor based on ResNet50."""
