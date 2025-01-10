@@ -1,6 +1,8 @@
+from io import BytesIO
 from typing import List
 
 import numpy as np
+import requests
 import torch
 import torch.nn as nn
 from PIL import Image
@@ -8,8 +10,15 @@ from torchvision import models
 
 
 def load_images(paths: List[str]) -> List[Image.Image]:
-    """Load the images from a list of paths and return a list of Pillow Image objects."""
-    return [Image.open(path) for path in paths]
+    """Load the images from a list of paths (local or URL) and return a list of Pillow Image objects."""
+    images = []
+    for path in paths:
+        if path.startswith("http://") or path.startswith("https://"):
+            response = requests.get(path)
+            response.raise_for_status()
+            image = Image.open(BytesIO(response.content))
+        images.append(image)
+    return images
     
 def resize_image(img: Image.Image) -> Image.Image:
     """Resizes the given Pillow image to 128x128 pixels."""
