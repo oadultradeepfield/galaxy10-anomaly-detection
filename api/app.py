@@ -1,9 +1,12 @@
 import numpy as np
 import torch
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request
 from helper import (compute_reconstruction_errors, create_feature_extractor,
-                    load_images, load_model, resize_image)
+                    load_images, load_model, resize_image, validate_apikey)
 from models import Autoencoder
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -14,6 +17,16 @@ model = load_model(model)
 
 @app.route('/detect-anomalies', methods=['POST'])
 def detect_anomalies():
+    auth_header = request.headers.get("Authorization")
+    if not auth_header or not auth_header.startswith("Bearer "):
+        return jsonify({"error": "Authorization header missing or malformed"}), 401
+
+    apikey = auth_header.split("Bearer ")[1]
+    is_valid, message = validate_apikey(apikey)
+
+    if not is_valid:
+        return jsonify({"error": message}), 401
+
     image_paths = request.json.get("image_paths", [])
     if not image_paths:
         return jsonify({"error": "No image paths provided"}), 400

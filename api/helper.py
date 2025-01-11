@@ -1,7 +1,10 @@
+import os
+from datetime import datetime
 from io import BytesIO
 from typing import List
 
 import numpy as np
+import psycopg2
 import requests
 import torch
 import torch.nn as nn
@@ -48,4 +51,36 @@ def compute_reconstruction_errors(autoencoder: nn.Module, test_features: np.ndar
         reconstructed_features = autoencoder(test_features_tensor)
 
     return torch.mean((test_features_tensor - reconstructed_features) ** 2, dim=1).cpu().numpy()
-    
+
+def validate_apikey(apikey):
+    """Validate the API key by checking the database."""
+    if not apikey:
+        return False, "Missing API key"
+
+    try:
+        conn = psycopg2.connect(os.getenv("DATABASE_URL"))
+        cursor = conn.cursor()
+
+        query = """
+        SELECT expired_at
+        FROM api_keys
+        WHERE apikey = %s
+        """
+        cursor.execute(query, (apikey,))
+        result = cursor.fetchone()
+
+        if not result:
+            return False, "Invalid API key"
+
+        expired_at = result[0]
+        if datetime.now(datetime.timezone.utc) > expired_at:
+            return False, "API key expired"
+
+        return True, "API key is valid"
+
+    except Exception as e:
+        return False, f"Database error: {str(e)}"
+
+    finally:
+        if 'conn' in locals():
+            conn.close()
