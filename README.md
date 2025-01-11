@@ -22,18 +22,18 @@ As of January 2025, I have built a public API using Flask for image analysis and
 1. **Prepare Images**: Format your images similarly to the Galaxy10 DECals dataset. While not mandatory, this ensures better accuracy.
    Here’s the revised version that includes the requirement to pass an API key and information about where users can generate one:
 
-2. **Use the API**: The API is publicly accessible at [https://galaxy10-722997148167.asia-southeast1.run.app](https://galaxy10-722997148167.asia-southeast1.run.app). Note that rate limits may restrict large requests. To use the API, you must include a valid API key in the request headers. You can generate your API key at [https://galaxy10-apikey.vercel.app](https://galaxy10-apikey.vercel.app). Here’s an example of how to use the API:
+2. **Use the API**: The API is publicly accessible at https://galaxy10-545851193066.asia-southeast1.run.app. Note that rate limits may restrict large requests. To use the API, you must include a valid API key in the request headers. You can generate your API key at https://galaxy10-apikey.vercel.app. Here’s an example of how to use the API:
 
    ```bash
-   curl -X POST "https://galaxy10-722997148167.asia-southeast1.run.app/detect-anomalies" \
-      -H "Content-Type: application/json" \
-      -H "Authorization: Bearer YOUR_API_KEY" \
-      -d '{
+   curl -X POST "https://galaxy10-545851193066.asia-southeast1.run.app/detect-anomalies" \
+     -H "Content-Type: application/json" \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -d '{
          "image_paths": [
-            "https://example.com/image1.jpg",
-            "https://example.com/image2.jpg"
+             "https://example.com/image1.jpg",
+             "https://example.com/image2.jpg"
          ]
-      }'
+     }'
    ```
 
    Ensure the image URLs are publicly accessible on the internet. The output is returned in JSON format, as shown below, with "loss" representing the reconstruction error.

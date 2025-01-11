@@ -64,7 +64,7 @@ def validate_apikey(apikey):
         query = """
         SELECT expired_at
         FROM api_keys
-        WHERE apikey = %s
+        WHERE api_key = %s
         """
         cursor.execute(query, (apikey,))
         result = cursor.fetchone()

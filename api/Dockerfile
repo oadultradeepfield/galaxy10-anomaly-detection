@@ -19,7 +19,7 @@ RUN apt-get update && \
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Download the SentenceTransformer model during the build process
+# Download the model during the build process
 RUN python -c "from torchvision import models; pretrained_model = models.resnet50(weights='DEFAULT')"
 
 # Copy the application files
